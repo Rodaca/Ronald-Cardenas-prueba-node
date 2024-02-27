@@ -2,9 +2,10 @@ const { Model,DataTypes } = require("sequelize")
 const sequelize= require("../database/config.js")
 
 
-
+// Definir el modelo Producto
 class Producto extends Model {}
 
+// Definir los atributos y configuraciones del modelo
 Producto = sequelize.define('Producto', {
     id: {
         type: DataTypes.UUID,
@@ -23,14 +24,15 @@ Producto = sequelize.define('Producto', {
     },
     barcode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull: false
     },
     presentacion: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(25),
         allowNull: false
     },
     descripcion: {
@@ -47,8 +49,10 @@ Producto = sequelize.define('Producto', {
         defaultValue: 0.00
     }
 },{
-    sequelize,
-    modelName: "Producto"
+    sequelize, // Pasar la instancia de Sequelize
+    modelName: 'Producto', // Nombre del modelo en singular
+    tableName: 'productos', // Nombre de la tabla en plural
+    timestamps: false // Desactivar la creación automática de timestamps
 });
 
 module.exports = Producto;
