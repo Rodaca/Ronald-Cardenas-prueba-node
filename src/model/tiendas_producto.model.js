@@ -12,8 +12,8 @@ class TiendaProducto extends Model {}
 // Definir los atributos y configuraciones del modelo
 TiendaProducto = sequelize.define('TiendaProducto', {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     compra_maxima: {

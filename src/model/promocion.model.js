@@ -8,8 +8,8 @@ class Promocion extends Model {}
 // Definir los atributos y configuraciones del modelo
 Promocion = sequelize.define('Promocion', {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     estado: {

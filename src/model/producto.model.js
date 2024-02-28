@@ -8,8 +8,8 @@ class Producto extends Model {}
 // Definir los atributos y configuraciones del modelo
 Producto = sequelize.define('Producto', {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     estado: {
