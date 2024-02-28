@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { listartienda } = require('../controller/tienda.contoller.js');
 
-// Ruta para crear un nuevo producto
+// Ruta para listar tienda
 router.get('/tiendas/:id', listartienda)
 
 

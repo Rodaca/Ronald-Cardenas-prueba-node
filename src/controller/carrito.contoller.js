@@ -51,12 +51,12 @@ async function crearCarrito(req, res) {
             id_user:data.id_user
         });
         res.status(201).json({
-            message: 'tiendas_producto creado'
+            message: 'carrito creado'
         });
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al crear el tiendas_producto'
+            message: 'Error al crear el carrito'
         });
     }
 }
