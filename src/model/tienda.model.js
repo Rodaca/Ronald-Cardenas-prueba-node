@@ -1,5 +1,7 @@
 const { Model,DataTypes } = require("sequelize")
-const sequelize= require("../database/config.js")
+const sequelize= require("../database/config.js");
+const Producto = require("./producto.model.js");
+const TiendaProducto = require("./tiendas_producto.model.js");
 
 
 // Definir el modelo Tienda
@@ -66,5 +68,7 @@ Tienda = sequelize.define('Tienda', {
     tableName: 'tiendas', // Nombre de la tabla en plural
     timestamps: false // Desactivar la creación automática de timestamps
 });
+
+
 
 module.exports = Tienda;
