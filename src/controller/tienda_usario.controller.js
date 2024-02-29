@@ -29,7 +29,6 @@ async function listartienda_usario(req, res) {
     const id_user = req.params.id_user;
     
    try {
-        let carritosDelProducto;
         const tienda = await Tienda.findByPk(id_tiendas, {
             include: [
                 {
@@ -86,7 +85,7 @@ async function listartienda_usario(req, res) {
                         id_promocion,
                         nombre,
                         porcentaje,
-                        valor_promocion: TiendaProducto.valor * porcentaje / 100
+                        valor_promocion: TiendaProducto.valor * (100-porcentaje) / 100
                     }))
                 };
             }

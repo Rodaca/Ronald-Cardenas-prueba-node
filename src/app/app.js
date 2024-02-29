@@ -5,6 +5,7 @@ const tiendas_productoRouter = require('../router/tiendas_producto.router.js');
 const tiendasRouter = require('../router/tienda.router.js');
 const carritoRouter = require('../router/carrito.router.js');
 const tiendas_usarioRouter = require('../router/tiendas_usuario.router.js');
+const pedidoRouter = require('../router/pedido.router.js');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/api/v1", tiendas_productoRouter);
 app.use("/api/v1", tiendasRouter);
 app.use("/api/v1", carritoRouter);
 app.use("/api/v1", tiendas_usarioRouter);
+app.use("/api/v1", pedidoRouter);
 
 // Manejador de errores global
 app.use((err, req, res, next) => {
