@@ -1,9 +1,11 @@
 const Pedido = require('../model/pedido.model.js');
+const PedidoEstado = require('../model/pedidos_estado.model.js');
 const Tienda = require('../model/tienda.model.js');
 const TiendaDistancia = require('../model/tiendas_distancia.model.js');
 const User = require('../model/user.model.js');
 const UserDireccion = require('../model/user_dirrecion.modelo.js');
 const UserCliente = require('../model/users_cliente.model.js');
+
 
 UserDireccion.hasMany(UserCliente, { foreignKey: 'id_direccion' });
 UserCliente.belongsTo(UserDireccion, { foreignKey: 'id_direccion' });
@@ -76,10 +78,17 @@ async function crearPedido(req, res) {
             id_tienda: id_tienda,
             id_user: id_user
         });
+        // Crear el estado del pedido
+        const createPedidoEstado = await PedidoEstado.create({
+            estado:1,
+            id_pedido: createPedido.id
+        });
+
 
         res.status(201).json({
-            message: "Perdido creado"
+            message: "Pedido y estado del pedido creados"
         });
+
 
     } catch (error) {
         console.error(error);
