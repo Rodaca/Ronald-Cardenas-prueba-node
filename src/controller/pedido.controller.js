@@ -1,5 +1,6 @@
 const Pedido = require('../model/pedido.model.js');
 const PedidoEstado = require('../model/pedidos_estado.model.js');
+const PedidoProducto = require('../model/pedidos_producto.model.js');
 const Tienda = require('../model/tienda.model.js');
 const TiendaDistancia = require('../model/tiendas_distancia.model.js');
 const User = require('../model/user.model.js');
@@ -84,9 +85,32 @@ async function crearPedido(req, res) {
             id_pedido: createPedido.id
         });
 
+        consultaData.forEach(async producto => {
+            const valorUnitario = parseFloat(producto.valor);
+            const cantidadProducto = parseFloat(producto.cantidad)
+            const valorUnitarioPromocion = producto.promociones.length > 0 ? parseFloat(producto.promociones[0].valor_promocion) : valorUnitario;
+            const totalTeorico = valorUnitario * parseFloat(producto.cantidad);
+            const totalFinal = valorUnitarioPromocion * parseFloat(producto.cantidad);
+            const idPromocion = producto.promociones.length > 0 ? producto.promociones[0].id_promocion : null;
+            const idProducto = producto.id_producto
+            // Crear el pedido del producto
+            const crearPedidoProducto = await PedidoProducto.create({
+                cantidad:cantidadProducto,
+                valor_unitario:valorUnitario,
+                valor_unitario_promocion:valorUnitarioPromocion,
+                total_teorico:totalTeorico,
+                total_final:totalFinal,
+                id_promocion:idPromocion,
+                id_producto:idProducto,
+                id_pedido:createPedido.id,
+            })
+        })
+        
+        
+
 
         res.status(201).json({
-            message: "Pedido y estado del pedido creados"
+            message: "Pedido,pedido estado y pedido producto creado"
         });
 
 

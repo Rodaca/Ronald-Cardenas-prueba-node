@@ -37,7 +37,6 @@ PedidoProducto = sequelize.define('PedidoProducto', {
     id_promocion: {
         type: DataTypes.MEDIUMINT,
         allowNull: true,
-        comment: 'La promoción de como se vendió',
         references: {
             model: Promocion,
             key: 'id'
@@ -46,7 +45,6 @@ PedidoProducto = sequelize.define('PedidoProducto', {
     id_producto: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        comment: 'Null = Se borró el producto después',
         references: {
             model: Producto,
             key: 'id'
