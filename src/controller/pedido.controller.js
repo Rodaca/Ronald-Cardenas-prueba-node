@@ -34,7 +34,7 @@ async function crearPedido(req, res) {
         const data = req.body;
 
         // Consultar productos del usuario
-        const consulta = await fetch(`http://localhost:9001/api/tiendas_usuarios/${id_tienda}/${id_user}`);
+        const consulta = await fetch(`http://localhost:9001/api/carrito/${id_tienda}/${id_user}`);
         let consultaData = [];
         let sumaValores = 0;
 

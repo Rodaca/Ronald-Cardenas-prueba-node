@@ -29,7 +29,7 @@ const tiendas = {};
 
 // Define una función para obtener los datos de la consulta
 async function obtenerDatosProducto(idTienda) {
-    const consulta = await fetch(`http://localhost:9001/api/tiendas/${idTienda}`);
+    const consulta = await fetch(`http://localhost:9001/api/catalogo/${idTienda}`);
     const datos = await consulta.json();
     
     return datos.data;
