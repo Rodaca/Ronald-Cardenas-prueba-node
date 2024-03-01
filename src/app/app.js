@@ -1,5 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 const productoRouter = require('../router/producto.router.js');
 const tiendas_productoRouter = require('../router/tiendas_producto.router.js');
 const tiendasRouter = require('../router/tienda.router.js');
@@ -18,6 +20,8 @@ app.use(morgan('dev'));
 app.get('/', (req, res) => {
   res.send('API Express Server');
 });
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Middleware para el manejo de solicitudes JSON
 app.use(express.json());

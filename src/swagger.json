@@ -1,0 +1,589 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Market API",
+    "description": "El API usada para solucionar la Prueba Técnica Developer Backend"
+  },
+  "tags": [
+    {
+      "name": "Primera parte",
+      "description": "Endpoints construidos en la Primera Parte"
+    },
+    {
+      "name": "Segunda parte Punto 1",
+      "description": "Endpoints construidos en la Segunda Parte - Punto 1"
+    },
+    {
+      "name": "Segunda parte Punto 2",
+      "description": "Endpoints construidos en la Segunda Parte - Punto 2"
+    },
+    {
+      "name": "Segunda parte Punto 3",
+      "description": "Endpoints construidos en la Segunda Parte - Punto 3"
+    },
+    {
+      "name": "Segunda parte Punto 4",
+      "description": "Endpoints construidos en la Segunda Parte - Punto 4"
+    },
+    {
+      "name": "Segunda parte Punto 5",
+      "description": "Endpoints construidos en la Segunda Parte - Punto 5"
+    }
+  ],
+  "paths": {
+    "api/crear/productos": {
+      "post": {
+        "summary": "Crear un nuevo producto",
+        "description": "Crea un nuevo producto en la base de datos",
+        "tags": [
+          "Primera parte"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del producto a crear",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "estado": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Estado del producto (0: inactivo, 1: activo)"
+                },
+                "kit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Kit del producto (0: no es kit, 1: es kit)"
+                },
+                "barcode": {
+                  "type": "string",
+                  "description": "Código de barras del producto"
+                },
+                "nombre": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Nombre del producto"
+                },
+                "presentacion": {
+                  "type": "string",
+                  "maxLength": 25,
+                  "description": "Presentación del producto"
+                },
+                "descripcion": {
+                  "type": "string",
+                  "description": "Descripción del producto"
+                },
+                "foto": {
+                  "type": "string",
+                  "description": "URL de la foto del producto"
+                },
+                "peso": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Peso del producto en kg (máximo 9999.99)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Producto creado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/crear/tiendas_productos": {
+      "post": {
+        "summary": "Crear una relación entre tienda y producto",
+        "description": "Crea una relación entre una tienda y un producto en la base de datos",
+        "tags": [
+          "Primera parte"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la relación tienda-producto a crear",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "compra_maxima": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Compra máxima permitida del producto en la tienda (máximo 999.9)"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Valor del producto en la tienda"
+                },
+                "id_promocion": {
+                  "type": "integer",
+                  "description": "ID de la promoción asociada al producto en la tienda (opcional)"
+                },
+                "id_tienda": {
+                  "type": "integer",
+                  "description": "ID de la tienda",
+                  "example": 1
+                },
+                "id_producto": {
+                  "type": "integer",
+                  "description": "ID del producto",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Relación tienda-producto creada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/catalogo/{id}": {
+      "get": {
+        "summary": "Obtener el catálogo de una tienda por ID",
+        "description": "Obtiene el catálogo de una tienda específica según su ID",
+        "tags": [
+          "Segunda parte Punto 1"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la tienda",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa. Devuelve el catálogo de la tienda.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "Información de los productos en el catálogo de la tienda"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "La tienda con el ID especificado no fue encontrada.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/crear/carritos": {
+      "post": {
+        "summary": "Crear un nuevo carrito",
+        "description": "Crea un nuevo carrito en la base de datos",
+        "tags": [
+          "Segunda parte Punto 2"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del carrito a crear",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cantidad": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Cantidad de productos en el carrito"
+                },
+                "id_producto": {
+                  "type": "integer",
+                  "description": "ID del producto",
+                  "example": 1
+                },
+                "id_tienda": {
+                  "type": "integer",
+                  "description": "ID de la tienda",
+                  "example": 1
+                },
+                "id_user": {
+                  "type": "integer",
+                  "description": "ID del usuario",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Carrito creado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/carrito/{id_tienda}/{id_user}": {
+      "get": {
+        "summary": "Listar carrito de un usuario en una tienda",
+        "description": "Obtiene el carrito de un usuario específico en una tienda específica",
+        "tags": [
+          "Segunda parte Punto 3"
+        ],
+        "parameters": [
+          {
+            "name": "id_tienda",
+            "in": "path",
+            "description": "ID de la tienda",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id_user",
+            "in": "path",
+            "description": "ID del usuario",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa. Devuelve el carrito del usuario.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "Información del carrito del usuario en la tienda"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontró el carrito para el usuario y tienda especificados.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/crear/pedidos/{id_tienda}/{id_user}": {
+      "post": {
+        "summary": "Crear un nuevo pedido",
+        "description": "Crea un nuevo pedido en la base de datos",
+        "tags": [
+          "Segunda parte Punto 4"
+        ],
+        "parameters": [
+          {
+            "name": "id_tienda",
+            "in": "path",
+            "description": "ID de la tienda",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id_user",
+            "in": "path",
+            "description": "ID del usuario",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del carrito a crear",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "instrucciones": {
+                  "type": "string",
+                  "description": "Instrucciones especiales para el pedido (opcional)"
+                },
+                "entrega_fecha": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Fecha de entrega del pedido (en formato YYYY-MM-DD)"
+                },
+                "valor_cupon": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Valor del cupón aplicado al pedido (opcional)"
+                },
+                "impuestos": {
+                  "type": "integer",
+                  "description": "Impuestos aplicados al pedido (porcentaje)"
+                },
+                "valor_impuestos": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Valor total de los impuestos aplicados al pedido"
+                },
+                "calificacion": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Calificación del pedido (opcional)"
+                },
+                "valor_comision": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "Valor de la comisión aplicada al pedido"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Pedido, estado de pedido y productos del pedido creados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/pedidos/{id}": {
+      "get": {
+        "summary": "Listar pedidos de un cliente",
+        "description": "Obtiene los pedidos de un cliente específico",
+        "tags": [
+          "Segunda parte Punto 5"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del cliente",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa. Devuelve los pedidos del cliente.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de éxito"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "Datos de los pedidos del cliente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraron pedidos para el cliente especificado."
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensaje de error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  }
+}

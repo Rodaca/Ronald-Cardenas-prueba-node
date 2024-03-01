@@ -45,7 +45,6 @@ async function crearCarrito(req, res) {
         // Crear el carrito
         const createCarrito = await Carrito.create({
             cantidad:data.cantidad,
-            valor:data.valor,
             id_producto:data.id_producto,
             id_tienda:data.id_tienda,
             id_user:data.id_user
