@@ -3,7 +3,7 @@ const router = express.Router();
 const { listartienda } = require('../controller/tienda.controller.js');
 
 // Ruta para listar tienda
-router.get('/tiendas/:id', listartienda)
+router.get('/catalogo/:id', listartienda)
 
 
 module.exports = router;

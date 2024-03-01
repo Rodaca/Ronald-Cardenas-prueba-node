@@ -3,7 +3,7 @@ const router = express.Router();
 const { crearCarrito } = require('../controller/carrito.controller.js');
 
 // Ruta para crear un nuevo carrito
-router.post('/carritos', crearCarrito)
+router.post('/crear/carritos', crearCarrito)
 
 
 module.exports = router;

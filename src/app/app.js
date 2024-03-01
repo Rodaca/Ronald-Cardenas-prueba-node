@@ -6,6 +6,8 @@ const tiendasRouter = require('../router/tienda.router.js');
 const carritoRouter = require('../router/carrito.router.js');
 const tiendas_usarioRouter = require('../router/tiendas_usuario.router.js');
 const pedidoRouter = require('../router/pedido.router.js');
+const pedidos_clienteRouter = require('../router/pedidos_cliente.router.js');
+
 
 const app = express();
 
@@ -21,12 +23,13 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 // Rutas de la API
-app.use("/api/v1", productoRouter);
-app.use("/api/v1", tiendas_productoRouter);
-app.use("/api/v1", tiendasRouter);
-app.use("/api/v1", carritoRouter);
-app.use("/api/v1", tiendas_usarioRouter);
-app.use("/api/v1", pedidoRouter);
+app.use("/api/", productoRouter);
+app.use("/api/", tiendas_productoRouter);
+app.use("/api/", tiendasRouter);
+app.use("/api/", carritoRouter);
+app.use("/api/", tiendas_usarioRouter);
+app.use("/api/", pedidoRouter);
+app.use("/api/", pedidos_clienteRouter);
 
 // Manejador de errores global
 app.use((err, req, res, next) => {

@@ -34,7 +34,7 @@ async function crearPedido(req, res) {
         const data = req.body;
 
         // Consultar productos del usuario
-        const consulta = await fetch(`http://localhost:9001/api/v1/tiendas_usuarios/${id_tienda}/${id_user}`);
+        const consulta = await fetch(`http://localhost:9001/api/tiendas_usuarios/${id_tienda}/${id_user}`);
         let consultaData = [];
         let sumaValores = 0;
 
@@ -74,9 +74,14 @@ async function crearPedido(req, res) {
             valor_productos: sumaValores,
             valor_descuento: sumaValores - sumaValoresDescuento,
             valor_envio: valorEncontrado,
+            valor_cupon: data.valor_cupon,
+            impuestos: data.impuestos,
+            valor_impuestos: data.valor_impuestos,
             valor_final: sumaValores + valorEncontrado - (sumaValores - sumaValoresDescuento),
+            calificacion: data.calificacion,
             direcion: direccionUsuario,
             id_tienda: id_tienda,
+            valor_comision: data.valor_comision,
             id_user: id_user
         });
         // Crear el estado del pedido
