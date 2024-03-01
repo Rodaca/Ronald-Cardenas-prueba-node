@@ -45,6 +45,9 @@ Este proyecto utiliza las siguientes herramientas y librerías:
 - **Swagger-UI-Express**: Integra la documentación de Swagger UI con aplicaciones Express para visualizar y probar la API.
 
 - **Nodemon**(opcional): Herramienta de desarrollo que reinicia automáticamente el servidor al detectar cambios en el código.
+
+- **Axios**: Cliente HTTP basado en promesas para el navegador y Node.js, facilita las solicitudes HTTP para consumir APIs.
+
 ## Configuración de Variables de Entorno
 
 Para que la aplicación funcione correctamente, es necesario configurar las siguientes variables de entorno. Puede hacerlo creando un archivo `.env` en la raíz del proyecto y añadiendo las siguientes líneas:

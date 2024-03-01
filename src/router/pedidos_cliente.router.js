@@ -1,5 +1,5 @@
 const express = require('express');
-const { listarPedidoCliente } = require("../controller/Pedidos_cliente.controller");
+const { listarPedidoCliente } = require("../controller/pedidos_cliente.controller");
 const router = express.Router();
 
 // Ruta para listar los pedidos por cliente

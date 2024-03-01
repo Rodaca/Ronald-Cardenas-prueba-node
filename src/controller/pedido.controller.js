@@ -1,3 +1,6 @@
+const { configDotenv } = require("dotenv");
+const axios = require('axios');
+
 const Pedido = require('../model/pedido.model.js');
 const PedidoEstado = require('../model/pedidos_estado.model.js');
 const PedidoProducto = require('../model/pedidos_producto.model.js');
@@ -10,6 +13,9 @@ const UserCliente = require('../model/users_cliente.model.js');
 
 UserDireccion.hasMany(UserCliente, { foreignKey: 'id_direccion' });
 UserCliente.belongsTo(UserDireccion, { foreignKey: 'id_direccion' });
+
+// Cargar las variables de entorno desde el archivo .env
+configDotenv();
 
 //verificar si si la distancia dada esta en el rango
 function obtenerValor(rango, distancia) {
@@ -34,7 +40,7 @@ async function crearPedido(req, res) {
         const data = req.body;
 
         // Consultar productos del usuario
-        const consulta = await fetch(`http://localhost:9001/api/carrito/${id_tienda}/${id_user}`);
+        const consulta = await await axios.get(`http://localhost:${process.env.PORT}/api/carrito/${id_tienda}/${id_user}`);
         let consultaData = [];
         let sumaValores = 0;
 

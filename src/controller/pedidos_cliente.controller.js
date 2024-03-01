@@ -1,3 +1,6 @@
+const { configDotenv } = require("dotenv");
+const axios = require('axios');
+
 const Carrito = require("../model/carrito.model");
 const Pedido = require("../model/pedido.model");
 const PedidoEstado = require("../model/pedidos_estado.model");
@@ -12,6 +15,9 @@ PedidoEstado.belongsTo(Pedido, { foreignKey: 'id_pedido' });
 
 Tienda.hasMany(Carrito, { foreignKey: 'id_tienda' });
 Carrito.belongsTo(Tienda, { foreignKey: 'id_tienda' });
+
+// Cargar las variables de entorno desde el archivo .env
+configDotenv();
 
 async function listarPedidoCliente(req, res) {
     const id_user = req.params.id;
@@ -29,11 +35,11 @@ const tiendas = {};
 
 // Define una función para obtener los datos de la consulta
 async function obtenerDatosProducto(idTienda) {
-    const consulta = await fetch(`http://localhost:9001/api/catalogo/${idTienda}`);
+    const consulta = await await axios.get(`http://localhost:${process.env.PORT}/api/catalogo/${idTienda}`);
     const datos = await consulta.json();
     
     return datos.data;
-    
+
 }
 
 // Utiliza un bucle for...of para manejar las promesas correctamente
